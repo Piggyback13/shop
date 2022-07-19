@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %}Sale {{ sale.id }}{% endblock %}
+
+{% block content %}
+    <div class="features">
+        <p>Sale date: {{ sale.sale_date }}</p>
+        <p>Product: {{ sale.product }}</p>
+        <p>Amount: {{ sale.amount }}</p>
+    </div>
+{% endblock %}

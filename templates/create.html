@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}Add the sale{% endblock %}
+
+{% block content %}
+    <div class="features">
+        <h1>Add the sale:</h1>
+        <form method="post" class="add">
+            {% csrf_token %}
+            {{ sale_form.sale_date }}<br>
+            {{ sale_form.product }}<br>
+            {{ sale_form.amount }}<br>
+            <span>{{ error }}</span>
+            <br>
+{#            <input name="sale_date" type="date" class="form-control"><br>#}
+{#            <input name="product" type="text" placeholder="Product name" class="form-control"><br>#}
+{#            <input name="amount" type="number" placeholder="Amount" class="form-control"><br>#}
+            <button class="btn btn-info" type="submit">Add</button>
+        </form>
+    </div>
+{% endblock %}

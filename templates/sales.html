@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load mathfilters %}
+
+{% block title %}Sales{% endblock %}
+
+{% block content %}
+    <div class="features">
+        <a href="{% url 'product' %}"><button class="btn btn-secondary" >Go see the list of products</button></a>
+        <br>
+        <br>
+        <h1>Sales:</h1>
+        {% if user.is_authenticated %}
+            <form class="hide-form" method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" class="btn btn-info btn-sm" value="Hide">
+            </form>
+            <a class="create-button" href="{% url 'create' %}"><button class="btn btn-info">Add sale</button></a>
+            <br>
+            {% if sales %}
+                <br>
+                <table>
+                    <tr>
+                        <th>Sale date</td>
+                        <th>Product name</th>
+                        <th>Amount</th>
+                        <th>Sale amount</th>
+                    </tr>
+                    {% for el in sales %}
+                        <tr>
+                            <td>{{ el.sale_date }}</td>
+                            <td>{{ el.product }}</td>
+                            <td>{{ el.amount }}</td>
+                            <td>{{ el.product.price |mul:el.amount }}</td>
+                            <td class="hidden-td">
+                                <a href="{% url 'sale-details' el.id %}" class="btn btn-secondary btn-sm">View</a>
+                                <a href="{% url 'sale-update' el.id %}"><button class="btn btn-info btn-sm">Edit</button></a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% else %}
+                <p>You haven't made any sales yet</p>
+            {% endif %}
+        {% else %}
+            <p>You need to log in with your account to see the sales list</p>
+        {% endif %}
+    </div>
+{% endblock %}
